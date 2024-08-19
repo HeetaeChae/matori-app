@@ -22,6 +22,14 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "내 주변의 맛집 스토리를 확인하기 위해 현재 위치를 확인합니다."
+        }
+      ]
+    ]
   }
 }
