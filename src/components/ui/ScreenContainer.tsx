@@ -12,10 +12,8 @@ function ScreenContainer({ children }: ScreenContainerProps) {
   return (
     <View
       style={{
-        paddingTop: insets.top,
-        paddingLeft: insets.left,
-        paddingBottom: insets.bottom,
-        paddingRight: insets.right,
+        flex: 1,
+        backgroundColor: "white",
       }}
     >
       {children}
