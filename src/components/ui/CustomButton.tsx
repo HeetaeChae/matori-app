@@ -6,6 +6,7 @@ import {
   Text,
   ViewStyle,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import {
   darkColors,
@@ -19,6 +20,7 @@ import { useDarkModeStore } from "../../store/useDarkModeStore";
 interface CustomButtonProps extends PressableProps {
   isFull?: boolean;
   type?: "primary" | "outlined" | "secondary" | "link";
+  icon?: keyof typeof Ionicons.glyphMap;
   children: ReactNode;
   styleProp?: ViewStyle;
 }
@@ -28,6 +30,7 @@ type Colors = typeof darkColors | typeof lightColors;
 function CustomButton({
   isFull = false,
   type = "primary",
+  icon,
   children,
   styleProp,
   ...rest
@@ -48,6 +51,7 @@ function CustomButton({
 
   return (
     <Pressable style={({ pressed }) => pressableStyle(pressed)} {...rest}>
+      {icon && <Ionicons name={icon} style={textStyle} />}
       <Text style={textStyle}>{children}</Text>
     </Pressable>
   );
@@ -62,6 +66,10 @@ const styles = (colors: Colors, isFull: boolean) =>
       alignSelf: isFull ? "stretch" : "center",
       borderRadius: isFull ? 20 : 25,
       padding: isFull ? spacing.medium : spacing.small,
+      justifyContent: "center",
+      alignItems: "center",
+      flexDirection: "row",
+      gap: spacing.extraSmall,
     },
     primaryPressable: {
       borderColor: colors.PRIMARY,

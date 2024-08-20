@@ -29,6 +29,22 @@
         {
           "locationAlwaysAndWhenInUsePermission": "내 주변의 맛집 스토리를 보기 위해 앱이 현재 사용자의 위치를 확인합니다."
         }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "나의 사진을 사용하기 위해 앱이 사진보관함에 접근할 수 있도록 허용합니다.",
+          "savePhotosPermission": "앱이 사진을 저장할 수 있도록 허용합니다.",
+          "isAccessMediaLocationEnabled": true
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
+          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone",
+          "recordAudioAndroid": true
+        }
       ]
     ]
   }

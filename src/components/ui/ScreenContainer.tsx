@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { StyleSheet, View } from "react-native";
+import { StatusBar, StyleSheet, View } from "react-native";
 import { EdgeInsets, useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useDarkModeStore } from "../../store/useDarkModeStore";
@@ -18,7 +18,12 @@ function ScreenContainer({ children }: ScreenContainerProps) {
   const { isDarkMode } = useDarkModeStore();
   const colors: Colors = isDarkMode ? darkColors : lightColors;
 
-  return <View style={styles(colors, insets).screenContainer}>{children}</View>;
+  return (
+    <View style={styles(colors, insets).screenContainer}>
+      <StatusBar />
+      {children}
+    </View>
+  );
 }
 
 export default ScreenContainer;
