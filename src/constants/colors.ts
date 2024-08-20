@@ -5,7 +5,7 @@ const palette = {
   RED: "#E0245E",
   DARK_GRAY: "#657786",
   LIGHT_GRAY: "#AAB8C2",
-  EXTRA_DARK_GRAY: "#1C1C1C",
+  EXTRA_DARK_GRAY: "#363636",
   EXTRA_LIGHT_GRAY: "#E1E8ED",
 } as const;
 

@@ -1,24 +1,34 @@
 import { ReactNode } from "react";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { EdgeInsets, useSafeAreaInsets } from "react-native-safe-area-context";
+
+import { useDarkModeStore } from "../../store/useDarkModeStore";
+
+import { darkColors, lightColors } from "../../constants/_index";
 
 interface ScreenContainerProps {
   children: ReactNode;
 }
 
-function ScreenContainer({ children }: ScreenContainerProps) {
-  const insets = useSafeAreaInsets();
+type Colors = typeof darkColors | typeof lightColors;
 
-  return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: "white",
-      }}
-    >
-      {children}
-    </View>
-  );
+function ScreenContainer({ children }: ScreenContainerProps) {
+  const insets: EdgeInsets = useSafeAreaInsets();
+
+  const { isDarkMode } = useDarkModeStore();
+  const colors: Colors = isDarkMode ? darkColors : lightColors;
+
+  return <View style={styles(colors, insets).screenContainer}>{children}</View>;
 }
 
 export default ScreenContainer;
+
+const styles = (colors: Colors, insets: EdgeInsets) =>
+  StyleSheet.create({
+    screenContainer: {
+      backgroundColor: colors.BACKGROUND_PRIMARY,
+      flex: 1,
+      paddingTop: insets.top,
+      paddingBottom: insets.bottom,
+    },
+  });
