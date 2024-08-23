@@ -1,8 +1,24 @@
 import React from "react";
-import { Text } from "react-native";
+import ComponentContainer from "../components/ui/ComponentContainer";
+import CustomButton from "../components/ui/CustomButton";
+import ScreenContainer from "../components/ui/ScreenContainer";
+import navigations from "../constants/navigations";
+import { StoryStackNavigationProp } from "../types/ParamLists";
 
-function EditStoryScreen() {
-  return <Text>스토리 작성</Text>;
+interface StoryScreenProps {
+  navigation: StoryStackNavigationProp;
+}
+
+function EditStoryScreen({ navigation }: StoryScreenProps) {
+  return (
+    <ScreenContainer>
+      <ComponentContainer>
+        <CustomButton onPress={() => navigation.navigate(navigations.CAMERA)}>
+          CAMERA
+        </CustomButton>
+      </ComponentContainer>
+    </ScreenContainer>
+  );
 }
 
 export default EditStoryScreen;

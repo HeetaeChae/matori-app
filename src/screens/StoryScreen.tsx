@@ -1,17 +1,26 @@
 import React from "react";
-import { Text } from "react-native";
 import ComponentContainer from "../components/ui/ComponentContainer";
-import CustomText from "../components/ui/CustomText";
+import CustomButton from "../components/ui/CustomButton";
 import ScreenContainer from "../components/ui/ScreenContainer";
+import navigations from "../constants/navigations";
 import useMediaLibrary from "../hooks/useMediaLibrary";
+import { StoryStackNavigationProp } from "../types/ParamLists";
 
-function StoryScreen() {
+interface StoryScreenProps {
+  navigation: StoryStackNavigationProp;
+}
+
+function StoryScreen({ navigation }: StoryScreenProps) {
   useMediaLibrary();
 
   return (
     <ScreenContainer>
       <ComponentContainer>
-        <CustomText>스토리</CustomText>
+        <CustomButton
+          onPress={() => navigation.navigate(navigations.EDIT_STORY)}
+        >
+          Edit Story
+        </CustomButton>
       </ComponentContainer>
     </ScreenContainer>
   );

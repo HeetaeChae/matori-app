@@ -1,4 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import navigations from "../../constants/navigations";
 import SettingsScreen from "../../screens/SettingsScreen";
 import { BottomTabParamList } from "../../types/ParamLists";
@@ -27,7 +28,15 @@ function BottomTabNavigator() {
       <BottomTab.Screen
         name={navigations.STORY_STACK}
         component={StoryStackNavigator}
-        options={{ tabBarShowLabel: false }}
+        options={({ route }) => ({
+          tabBarShowLabel: false,
+          tabBarStyle: {
+            display:
+              getFocusedRouteNameFromRoute(route) === navigations.CAMERA
+                ? "none"
+                : "flex",
+          },
+        })}
       />
       <BottomTab.Screen
         name={navigations.SETTINGS}

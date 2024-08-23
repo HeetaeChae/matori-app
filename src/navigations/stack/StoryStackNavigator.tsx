@@ -1,5 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import navigations from "../../constants/navigations";
+import CameraScreen from "../../screens/CameraScreen";
 import CommentScreen from "../../screens/CommentScreen";
 import EditStoryScreen from "../../screens/EditStoryScreen";
 import ShopInfoScreen from "../../screens/ShopInfoScreen";
@@ -24,6 +25,7 @@ function StoryStackNavigator() {
         name={navigations.SHOP_INFO}
         component={ShopInfoScreen}
       />
+      <StoryStack.Screen name={navigations.CAMERA} component={CameraScreen} />
     </StoryStack.Navigator>
   );
 }

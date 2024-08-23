@@ -8,6 +8,7 @@ const navigations = {
   SETTINGS: "Settings",
   SHOP_INFO: "ShopInfo",
   COMMENT: "Comment",
+  CAMERA: "Camera",
   HOME_STACK: "HomeStack",
   STORY_STACK: "StoryStack",
   PROFILE_STACK: "ProfileStack",
