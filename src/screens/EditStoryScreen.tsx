@@ -16,6 +16,9 @@ function EditStoryScreen({ navigation }: StoryScreenProps) {
         <CustomButton onPress={() => navigation.navigate(navigations.CAMERA)}>
           CAMERA
         </CustomButton>
+        <CustomButton onPress={() => navigation.navigate(navigations.GALLERY)}>
+          GALLERY
+        </CustomButton>
       </ComponentContainer>
     </ScreenContainer>
   );

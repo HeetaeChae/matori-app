@@ -9,6 +9,7 @@ const navigations = {
   SHOP_INFO: "ShopInfo",
   COMMENT: "Comment",
   CAMERA: "Camera",
+  GALLERY: "Gallery",
   HOME_STACK: "HomeStack",
   STORY_STACK: "StoryStack",
   PROFILE_STACK: "ProfileStack",
