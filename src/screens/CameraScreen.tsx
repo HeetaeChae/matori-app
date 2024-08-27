@@ -1,13 +1,10 @@
-import { CameraView, CameraType, Camera } from "expo-camera";
-import { Pressable, View } from "react-native";
-import CustomText from "../components/ui/CustomText";
-import CustomView from "../components/ui/CustomView";
+import { CameraView } from "expo-camera";
 import ScreenContainer from "../components/ui/ScreenContainer";
 import useCamera from "../hooks/useCamera";
 import { StoryStackNavigationProp } from "../types/ParamLists";
-import { Ionicons } from "@expo/vector-icons";
-import CustomButton from "../components/ui/CustomButton";
-import { useLayoutEffect } from "react";
+import CustomPressable from "../components/ui/CustomPressable";
+import ComponentContainer from "../components/ui/ComponentContainer";
+import CustomView from "../components/ui/CustomView";
 
 interface CameraScreenProps {
   navigation: StoryStackNavigationProp;
@@ -25,17 +22,45 @@ function CameraScreen({ navigation }: CameraScreenProps) {
 
   return (
     <ScreenContainer>
-      <CustomView styleProp={{ flex: 0.1 }}>
-        <CustomButton type="outlined" onPress={handleCancel}>
-          <Ionicons name="arrow-back" size={30} />
-        </CustomButton>
-      </CustomView>
+      <ComponentContainer
+        styleProp={{
+          flex: 0.1,
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <CustomPressable
+          icon="close"
+          onPress={handleCancel}
+          type="secondary"
+          size="large"
+        />
+        <CustomView style={{ flexDirection: "row" }}>
+          <CustomPressable
+            icon="flash-off"
+            onPress={handleToggleFacing}
+            type="secondary"
+            size="large"
+          />
+          <CustomPressable
+            icon="refresh"
+            onPress={handleToggleFacing}
+            type="secondary"
+            size="large"
+          />
+        </CustomView>
+      </ComponentContainer>
       <CameraView {...cameraProps} style={{ flex: 0.8 }} />
-      <CustomView styleProp={{ flex: 0.1 }} isCenter>
-        <CustomButton type="outlined">
-          <Ionicons name="camera" size={30} />
-        </CustomButton>
-      </CustomView>
+      <ComponentContainer styleProp={{ flex: 0.1 }} isCenter>
+        <CustomPressable
+          icon="radio-button-on"
+          onPress={handleTakePicture}
+          type="secondary"
+          size="large"
+          hasCircleOutline
+        />
+      </ComponentContainer>
     </ScreenContainer>
   );
 }

@@ -54,4 +54,14 @@ const getAccessToken = async () => {
   return data;
 };
 
-export { getProfile, login, signup, getAccessToken };
+const logout = async () => {
+  const accessToken =
+    axiosInstanceWithAccessToken.defaults.headers.common["Authorization"];
+  if (accessToken) {
+    delete axiosInstanceWithAccessToken.defaults.headers.common[
+      "Authorization"
+    ];
+  }
+};
+
+export { getProfile, login, signup, getAccessToken, logout };

@@ -6,6 +6,7 @@ import CustomText from "../components/ui/CustomText";
 import CustomView from "../components/ui/CustomView";
 import ScreenContainer from "../components/ui/ScreenContainer";
 import { useDarkModeStore } from "../store/useDarkModeStore";
+import CustomPressable from "../components/ui/CustomPressable";
 
 function HomeScreen() {
   const { toggleDarkMode, isDarkMode } = useDarkModeStore();
@@ -14,7 +15,23 @@ function HomeScreen() {
     <ScreenContainer>
       <Switch onChange={() => toggleDarkMode()} value={isDarkMode} />
       <ComponentContainer>
-        <CustomButton>primary-content</CustomButton>
+        <CustomPressable
+          icon="disc"
+          hasCircleOutline
+          type="secondary"
+          size="normal"
+        />
+        <CustomPressable
+          icon="heart"
+          text="30"
+          type="secondary"
+          size="normal"
+        />
+      </ComponentContainer>
+      <ComponentContainer>
+        <CustomButton icon="home" type="secondary">
+          primary-content
+        </CustomButton>
         <CustomButton type="outlined">outlined-content</CustomButton>
         <CustomButton type="link">link-content</CustomButton>
         <CustomButton type="secondary">secondary-content</CustomButton>

@@ -1,21 +1,18 @@
 import {
   MutationOptions,
-  QueryOptions,
   useMutation,
   useQuery,
   UseQueryOptions,
 } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useLoginStateStore } from "../../store/useLoginStateStore";
 
 import queryKeys from "../../constants/queryKeys";
-import { getProfile, login, signup, getAccessToken } from "../../api/auth";
+import { getProfile, login, logout, signup } from "../../api/auth";
 import {
   RequestLogin,
   RequestProfile,
   RequestSignup,
-  ResponseAccessToken,
   ResponseLogin,
   ResponseProfile,
   ResponseSigntup,
@@ -26,10 +23,13 @@ import {
   setAccessToken,
   setRefreshToken,
 } from "../../utils/handleToken";
+import { useEffect } from "react";
 
-const { AUTH, GET_PROFILE, GET_ACCESS_TOKEN } = queryKeys;
+const { AUTH, GET_PROFILE, LOG_OUT } = queryKeys;
 
 function useAuth() {
+  const { handleLoginState } = useLoginStateStore((state) => state);
+
   const useGetProfile = (
     { email }: RequestProfile,
     options?: UseQueryOptions<
@@ -54,10 +54,12 @@ function useAuth() {
       onSuccess: ({ refreshToken, accessToken }) => {
         setRefreshToken(refreshToken);
         setAccessToken(accessToken);
+        handleLoginState(true);
       },
       onError: () => {
         removeRefreshToken();
         removeAccessToken();
+        handleLoginState(false);
       },
       ...options,
     });
@@ -72,7 +74,19 @@ function useAuth() {
     });
   };
 
-  return { useGetProfile, useLogin, useSignup };
+  const useLogout = (options?: MutationOptions<void, AxiosError, void>) => {
+    return useMutation({
+      mutationFn: logout,
+      onSettled: () => {
+        removeRefreshToken();
+        removeAccessToken();
+        handleLoginState(false);
+      },
+      ...options,
+    });
+  };
+
+  return { useGetProfile, useLogin, useSignup, useLogout };
 }
 
 export default useAuth;

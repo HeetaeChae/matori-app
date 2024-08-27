@@ -8,12 +8,13 @@ import {
 } from "expo-camera";
 import showSettingsAlert from "../utils/showSettingsAlert";
 import { StoryStackNavigationProp } from "../types/ParamLists";
+import navigations from "../constants/navigations";
 
 type CapturedImage = CameraCapturedPicture | undefined;
 
 interface CameraProps {
   ref: React.RefObject<CameraView>;
-  type: CameraType;
+  facing: CameraType;
   zoom: number;
   autoFocus: FocusMode;
 }
@@ -32,7 +33,6 @@ function useCamera(
 
   const [facing, setFacing] = useState<CameraType>("back");
   const [zoomLevel, setZoomLevel] = useState<number>(0);
-
   const [capturedImage, setCapturedImage] = useState<CapturedImage>();
 
   useEffect(() => {
@@ -72,7 +72,7 @@ function useCamera(
 
   const cameraProps: CameraProps = {
     ref: cameraRef,
-    type: facing,
+    facing,
     zoom: zoomLevel,
     autoFocus: "off",
   };

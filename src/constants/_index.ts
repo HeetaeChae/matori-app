@@ -4,3 +4,4 @@ export * from "./spacing";
 export * from "./fontSizes";
 export * from "./fontWeights";
 export * from "./queryKeys";
+export * from "./storageKeys";
