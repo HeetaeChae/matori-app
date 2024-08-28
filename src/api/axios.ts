@@ -1,6 +1,6 @@
 import axios from "axios";
-import { getRefreshToken, setAccessToken } from "../utils/handleToken";
-import { getAccessToken } from "./auth";
+import { getRefreshToken, setAccessToken } from "../utils/handleStorageToken";
+import { getAccessTokenApi } from "./auth";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:5000",
@@ -13,7 +13,7 @@ const axiosInstance = axios.create({
 const axiosInstanceWithAccessToken = axiosInstance;
 
 axiosInstanceWithAccessToken.interceptors.request.use(async (config) => {
-  const accessToken = await getAccessToken();
+  const accessToken = await getAccessTokenApi();
   if (accessToken) {
     config.headers["Authorization"] = `Bearer ${accessToken}`;
   }
@@ -32,7 +32,7 @@ axiosInstanceWithAccessToken.interceptors.response.use(
       originalRequest._retry = true;
       const refreshToken = await getRefreshToken();
       if (refreshToken) {
-        const { accessToken } = await getAccessToken();
+        const { accessToken } = await getAccessTokenApi();
         await setAccessToken(accessToken);
         originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
         return axios(originalRequest);

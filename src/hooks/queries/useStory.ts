@@ -1,31 +1,49 @@
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import queryKeys from "../../constants/queryKeys";
 import {
-  ResponseAllStories,
-  ResponseStories,
-  ResponseStoryComments,
-} from "../../types/_index";
+  getAllStoriesApi,
+  getFollowingStoriesApi,
+  getLikedStoriesApi,
+  getUserStoriesApi,
+} from "../../api/story";
+import queryKeys from "../../constants/queryKeys";
+import { RequestUserStories, ResponseStories } from "../../types/_index";
 
-const { STORY, GET_ALL_STORIES, GET_STORIES, GET_STORY_COMMENTS } = queryKeys;
+const { STORY, GET_ALL_STORIES, GET_STORIES, GET_USER_STORIES } = queryKeys;
 
 function useStory() {
   const getAllStories = (
     options?: UseQueryOptions<
-      ResponseAllStories,
+      ResponseStories,
       AxiosError,
-      ResponseAllStories,
+      ResponseStories,
       [typeof STORY, typeof GET_ALL_STORIES]
     >
   ) => {
     return useQuery({
       queryKey: [STORY, GET_ALL_STORIES],
-      // queryFn
+      queryFn: getAllStoriesApi,
       ...options,
     });
   };
 
-  const getStories = (
+  const getUserStories = (
+    params: RequestUserStories,
+    options?: UseQueryOptions<
+      ResponseStories,
+      AxiosError,
+      ResponseStories,
+      [typeof STORY, typeof GET_USER_STORIES, typeof params.userId]
+    >
+  ) => {
+    return useQuery({
+      queryKey: [STORY, GET_USER_STORIES, params.userId],
+      queryFn: () => getUserStoriesApi(params),
+      ...options,
+    });
+  };
+
+  const getFollowingStories = (
     options?: UseQueryOptions<
       ResponseStories,
       AxiosError,
@@ -35,23 +53,32 @@ function useStory() {
   ) => {
     return useQuery({
       queryKey: [STORY, GET_STORIES],
-      // queryFn
+      queryFn: getFollowingStoriesApi,
       ...options,
     });
   };
 
-  const getStoryComments = (
+  const getLikedStories = (
     options?: UseQueryOptions<
-      ResponseStoryComments,
+      ResponseStories,
       AxiosError,
-      ResponseStoryComments,
-      [typeof STORY, typeof GET_STORY_COMMENTS]
+      ResponseStories,
+      [typeof STORY, typeof GET_STORIES]
     >
   ) => {
     return useQuery({
-      queryKey: [STORY, GET_STORY_COMMENTS],
-      // queryFn,
+      queryKey: [STORY, GET_STORIES],
+      queryFn: getLikedStoriesApi,
       ...options,
     });
   };
+
+  return {
+    getAllStories,
+    getFollowingStories,
+    getLikedStories,
+    getUserStories,
+  };
 }
+
+export default useStory;

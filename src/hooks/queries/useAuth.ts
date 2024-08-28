@@ -8,40 +8,39 @@ import { AxiosError } from "axios";
 import { useLoginStateStore } from "../../store/useLoginStateStore";
 
 import queryKeys from "../../constants/queryKeys";
-import { getProfile, login, logout, signup } from "../../api/auth";
+import { getProfileApi, loginApi, logoutApi, signupApi } from "../../api/auth";
 import {
   RequestLogin,
   RequestProfile,
   RequestSignup,
   ResponseLogin,
   ResponseProfile,
-  ResponseSigntup,
+  ResponseSignup,
 } from "../../types/api/Auth";
 import {
   removeAccessToken,
   removeRefreshToken,
   setAccessToken,
   setRefreshToken,
-} from "../../utils/handleToken";
-import { useEffect } from "react";
+} from "../../utils/handleStorageToken";
 
-const { AUTH, GET_PROFILE, LOG_OUT } = queryKeys;
+const { AUTH, GET_PROFILE } = queryKeys;
 
 function useAuth() {
   const { handleLoginState } = useLoginStateStore((state) => state);
 
   const useGetProfile = (
-    { email }: RequestProfile,
+    params: RequestProfile,
     options?: UseQueryOptions<
       ResponseProfile,
       AxiosError,
       ResponseProfile,
-      [typeof AUTH, typeof GET_PROFILE]
+      [typeof AUTH, typeof GET_PROFILE, typeof params.userId]
     >
   ) => {
     return useQuery({
-      queryKey: [AUTH, GET_PROFILE],
-      queryFn: () => getProfile({ email }),
+      queryKey: [AUTH, GET_PROFILE, params.userId],
+      queryFn: () => getProfileApi(params),
       ...options,
     });
   };
@@ -50,7 +49,7 @@ function useAuth() {
     options?: MutationOptions<ResponseLogin, AxiosError, RequestLogin>
   ) => {
     return useMutation({
-      mutationFn: login,
+      mutationFn: loginApi,
       onSuccess: ({ refreshToken, accessToken }) => {
         setRefreshToken(refreshToken);
         setAccessToken(accessToken);
@@ -66,17 +65,17 @@ function useAuth() {
   };
 
   const useSignup = (
-    options?: MutationOptions<ResponseSigntup, AxiosError, RequestSignup>
+    options?: MutationOptions<ResponseSignup, AxiosError, RequestSignup>
   ) => {
     return useMutation({
-      mutationFn: signup,
+      mutationFn: signupApi,
       ...options,
     });
   };
 
   const useLogout = (options?: MutationOptions<void, AxiosError, void>) => {
     return useMutation({
-      mutationFn: logout,
+      mutationFn: logoutApi,
       onSettled: () => {
         removeRefreshToken();
         removeAccessToken();

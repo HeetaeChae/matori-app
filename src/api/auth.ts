@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import urls from "../constants/urls";
 import {
   RequestLogin,
   RequestProfile,
@@ -6,30 +7,35 @@ import {
   ResponseAccessToken,
   ResponseLogin,
   ResponseProfile,
-  ResponseSigntup,
+  ResponseSignup,
 } from "../types/api/Auth";
 import { axiosInstance, axiosInstanceWithAccessToken } from "./axios";
 
-const getProfile = async ({ email }: RequestProfile) => {
+const { API_AUTH } = urls;
+
+const getProfileApi = async (params: RequestProfile) => {
   const { data } = await axiosInstanceWithAccessToken.get<ResponseProfile>(
-    `/api/auth/profile/:${email}`
+    `${API_AUTH}/profile/${params.userId}`
   );
 
   return data;
 };
 
-const login = async ({ email, password }: RequestLogin) => {
-  const { data } = await axiosInstance.post<ResponseLogin>("/api/auth/login", {
-    email,
-    password,
-  });
+const loginApi = async ({ email, password }: RequestLogin) => {
+  const { data } = await axiosInstance.post<ResponseLogin>(
+    `${API_AUTH}/login`,
+    {
+      email,
+      password,
+    }
+  );
 
   return data;
 };
 
-const signup = async ({ email, password, nickname }: RequestSignup) => {
-  const { data } = await axiosInstance.post<ResponseSigntup>(
-    "/api/auth/signup",
+const signupApi = async ({ email, password, nickname }: RequestSignup) => {
+  const { data } = await axiosInstance.post<ResponseSignup>(
+    `${API_AUTH}/signup`,
     {
       email,
       password,
@@ -40,10 +46,10 @@ const signup = async ({ email, password, nickname }: RequestSignup) => {
   return data;
 };
 
-const getAccessToken = async () => {
+const getAccessTokenApi = async () => {
   const refreshToken = await AsyncStorage.getItem("refresh-token");
   const { data } = await axiosInstance.get<ResponseAccessToken>(
-    "/api/auth/accessToken",
+    `${API_AUTH}/accessToken`,
     {
       headers: {
         Authorization: `Bearer ${refreshToken}`,
@@ -54,7 +60,7 @@ const getAccessToken = async () => {
   return data;
 };
 
-const logout = async () => {
+const logoutApi = async () => {
   const accessToken =
     axiosInstanceWithAccessToken.defaults.headers.common["Authorization"];
   if (accessToken) {
@@ -64,4 +70,4 @@ const logout = async () => {
   }
 };
 
-export { getProfile, login, signup, getAccessToken, logout };
+export { getProfileApi, loginApi, signupApi, getAccessTokenApi, logoutApi };

@@ -5,3 +5,4 @@ export * from "./fontSizes";
 export * from "./fontWeights";
 export * from "./queryKeys";
 export * from "./storageKeys";
+export * from "./urls";

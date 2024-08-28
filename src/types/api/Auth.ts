@@ -1,23 +1,34 @@
-export interface RequestProfile {
-  email: string;
+interface RequestProfile {
+  userId: number;
 }
 
-export interface RequestLogin extends RequestProfile {
+interface RequestLogin extends RequestProfile {
+  email: string;
   password: string;
 }
 
-export interface RequestSignup extends RequestLogin {
+interface RequestSignup extends RequestLogin {
   nickname: string;
 }
 
-export interface ResponseProfile {}
+interface ResponseProfile {}
 
-export interface ResponseAccessToken {
+interface ResponseAccessToken {
   accessToken: string;
 }
 
-export interface ResponseLogin extends ResponseAccessToken {
+interface ResponseLogin extends ResponseAccessToken {
   refreshToken: string;
 }
 
-export interface ResponseSigntup {}
+interface ResponseSignup {}
+
+export {
+  RequestProfile,
+  RequestLogin,
+  RequestSignup,
+  ResponseProfile,
+  ResponseAccessToken,
+  ResponseLogin,
+  ResponseSignup,
+};

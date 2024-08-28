@@ -1,5 +1,7 @@
-export interface ResponseAllStories {}
+interface RequestUserStories {
+  userId: number;
+}
 
-export interface ResponseStories {}
+interface ResponseStories {}
 
-export interface ResponseStoryComments {}
+export { RequestUserStories, ResponseStories };
