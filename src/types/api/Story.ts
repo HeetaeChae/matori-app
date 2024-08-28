@@ -1,7 +1,30 @@
-interface RequestUserStories {
+interface RequestGetStoriesByUserId {
   userId: number;
 }
 
-interface ResponseStories {}
+interface ResponseGetStories {}
 
-export { RequestUserStories, ResponseStories };
+interface RequestCreateStory {}
+
+interface ResponseCreateStory {}
+
+interface RequestUpdateStory {}
+
+interface ResponseUpdateStory {}
+
+interface RequestDeleteStory {
+  storyId: number;
+}
+
+interface ResponseDeleteStory {}
+
+export {
+  RequestGetStoriesByUserId,
+  ResponseGetStories,
+  RequestCreateStory,
+  ResponseCreateStory,
+  RequestUpdateStory,
+  ResponseUpdateStory,
+  RequestDeleteStory,
+  ResponseDeleteStory,
+};

@@ -1,10 +1,26 @@
-import { useQuery, UseQueryOptions } from "@tanstack/react-query";
+import {
+  MutationOptions,
+  useMutation,
+  useQuery,
+  UseQueryOptions,
+} from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { getCommentsApi } from "../../api/comments";
+import {
+  createCommentApi,
+  getCommentsApi,
+  updateCommentApi,
+  deleteCommentApi,
+} from "../../api/comments";
 import queryKeys from "../../constants/queryKeys";
 import {
+  RequestCreateComment,
+  RequestDeleteComment,
   RequestGetComments,
+  RequestUpdateComment,
+  ResponseCreateComment,
+  ResponseDeleteComment,
   ResponseGetComments,
+  ResponseUpdateComment,
 } from "../../types/api/Comment";
 
 function useComment() {
@@ -26,7 +42,46 @@ function useComment() {
     });
   };
 
-  return { getComments };
+  const createComment = async (
+    options?: MutationOptions<
+      ResponseCreateComment,
+      AxiosError,
+      RequestCreateComment
+    >
+  ) => {
+    return useMutation({
+      mutationFn: createCommentApi,
+      ...options,
+    });
+  };
+
+  const updateComment = async (
+    options?: MutationOptions<
+      ResponseUpdateComment,
+      AxiosError,
+      RequestUpdateComment
+    >
+  ) => {
+    return useMutation({
+      mutationFn: updateCommentApi,
+      ...options,
+    });
+  };
+
+  const deleteComment = async (
+    options?: MutationOptions<
+      ResponseDeleteComment,
+      AxiosError,
+      RequestDeleteComment
+    >
+  ) => {
+    return useMutation({
+      mutationFn: deleteCommentApi,
+      ...options,
+    });
+  };
+
+  return { getComments, createComment, updateComment, deleteComment };
 }
 
 export default useComment;
