@@ -1,13 +1,15 @@
 import {
   RequestCreateMarker,
   RequestDeleteMarker,
+  RequestGetMarkerByStoryId,
   RequestGetMarkersByUserId,
   ResponseCreateMarker,
   ResponseDeleteMarker,
   ResponseGetMarkers,
 } from "../types/api/Marker";
-import { axiosInstance, axiosInstanceWithAccessToken } from "./axios";
-import urls from "../constants/urls";
+import { urls } from "../constants/urls";
+
+import { axiosInstance, axiosInstanceWithAccessToken } from "../network/_index";
 
 const { API_MARKER } = urls;
 
@@ -35,6 +37,14 @@ const getUserMarkersApi = async (params: RequestGetMarkersByUserId) => {
   return data;
 };
 
+const getMarkerApi = async (params: RequestGetMarkerByStoryId) => {
+  const { data } = await axiosInstance.get<ResponseGetMarkers>(
+    `${API_MARKER}/${params.storyId}`
+  );
+
+  return data;
+};
+
 const createMarkerApi = async (params: RequestCreateMarker) => {
   const { data } = await axiosInstance.post<ResponseCreateMarker>(
     `${API_MARKER}`,
@@ -56,6 +66,7 @@ export {
   getAllMarkersApi,
   getMyMarkersApi,
   getUserMarkersApi,
+  getMarkerApi,
   createMarkerApi,
   deleteMarkerApi,
 };

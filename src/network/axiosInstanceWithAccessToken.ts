@@ -1,8 +1,12 @@
 import axios from "axios";
-import { getRefreshToken, setAccessToken } from "../utils/handleStorageToken";
-import { getAccessTokenApi } from "./auth";
+import {
+  getAccessToken,
+  getRefreshToken,
+  setAccessToken,
+} from "../utils/handleStorageToken";
+import getAccessTokenApi from "../api/accessToken";
 
-const axiosInstance = axios.create({
+const axiosInstanceWithAccessToken = axios.create({
   baseURL: "http://localhost:5000",
   withCredentials: true,
   headers: {
@@ -10,10 +14,9 @@ const axiosInstance = axios.create({
   },
 });
 
-const axiosInstanceWithAccessToken = axiosInstance;
-
 axiosInstanceWithAccessToken.interceptors.request.use(async (config) => {
-  const accessToken = await getAccessTokenApi();
+  const accessToken = await getAccessToken();
+
   if (accessToken) {
     config.headers["Authorization"] = `Bearer ${accessToken}`;
   }
@@ -25,11 +28,10 @@ axiosInstanceWithAccessToken.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    if (
-      !originalRequest._retry &&
-      (error.response.status === 400 || error.response.status === 401)
-    ) {
-      originalRequest._retry = true;
+
+    console.log(error);
+
+    if (error.response?.status === 400 || error.response?.status === 401) {
       const refreshToken = await getRefreshToken();
       if (refreshToken) {
         const { accessToken } = await getAccessTokenApi();
@@ -42,4 +44,4 @@ axiosInstanceWithAccessToken.interceptors.response.use(
   }
 );
 
-export { axiosInstance, axiosInstanceWithAccessToken };
+export { axiosInstanceWithAccessToken };

@@ -1,7 +1,7 @@
 import { createJSONStorage, persist } from "zustand/middleware";
 import { create } from "zustand";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import storageKeys from "../constants/storageKeys";
+import { storageKeys } from "../constants/storageKeys";
 
 interface LoginState {
   isLoggedIn: boolean | null;

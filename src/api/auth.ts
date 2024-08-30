@@ -1,15 +1,15 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import urls from "../constants/urls";
+import { urls } from "../constants/urls";
 import {
   RequestLogin,
   RequestProfile,
   RequestSignup,
-  ResponseAccessToken,
   ResponseLogin,
   ResponseProfile,
   ResponseSignup,
 } from "../types/api/Auth";
-import { axiosInstance, axiosInstanceWithAccessToken } from "./axios";
+
+import { axiosInstance, axiosInstanceWithAccessToken } from "../network/_index";
 
 const { API_AUTH } = urls;
 
@@ -46,28 +46,4 @@ const signupApi = async ({ email, password, nickname }: RequestSignup) => {
   return data;
 };
 
-const getAccessTokenApi = async () => {
-  const refreshToken = await AsyncStorage.getItem("refresh-token");
-  const { data } = await axiosInstance.get<ResponseAccessToken>(
-    `${API_AUTH}/accessToken`,
-    {
-      headers: {
-        Authorization: `Bearer ${refreshToken}`,
-      },
-    }
-  );
-
-  return data;
-};
-
-const logoutApi = async () => {
-  const accessToken =
-    axiosInstanceWithAccessToken.defaults.headers.common["Authorization"];
-  if (accessToken) {
-    delete axiosInstanceWithAccessToken.defaults.headers.common[
-      "Authorization"
-    ];
-  }
-};
-
-export { getProfileApi, loginApi, signupApi, getAccessTokenApi, logoutApi };
+export { getProfileApi, loginApi, signupApi };

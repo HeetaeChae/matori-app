@@ -7,8 +7,8 @@ import {
 import { AxiosError } from "axios";
 import { useLoginStateStore } from "../../store/useLoginStateStore";
 
-import queryKeys from "../../constants/queryKeys";
-import { getProfileApi, loginApi, logoutApi, signupApi } from "../../api/auth";
+import { queryKeys } from "../../constants/queryKeys";
+import { getProfileApi, loginApi, signupApi } from "../../api/auth";
 import {
   RequestLogin,
   RequestProfile,
@@ -23,13 +23,14 @@ import {
   setAccessToken,
   setRefreshToken,
 } from "../../utils/handleStorageToken";
+import handleLogout from "../../utils/handleLogout";
 
 const { AUTH, GET_PROFILE } = queryKeys;
 
 function useAuth() {
   const { handleLoginState } = useLoginStateStore((state) => state);
 
-  const useGetProfile = (
+  const getProfile = (
     params: RequestProfile,
     options?: UseQueryOptions<
       ResponseProfile,
@@ -45,7 +46,7 @@ function useAuth() {
     });
   };
 
-  const useLogin = (
+  const login = (
     options?: MutationOptions<ResponseLogin, AxiosError, RequestLogin>
   ) => {
     return useMutation({
@@ -64,7 +65,7 @@ function useAuth() {
     });
   };
 
-  const useSignup = (
+  const signup = (
     options?: MutationOptions<ResponseSignup, AxiosError, RequestSignup>
   ) => {
     return useMutation({
@@ -73,9 +74,9 @@ function useAuth() {
     });
   };
 
-  const useLogout = (options?: MutationOptions<void, AxiosError, void>) => {
+  const logout = (options?: MutationOptions<void, AxiosError, void>) => {
     return useMutation({
-      mutationFn: logoutApi,
+      mutationFn: handleLogout,
       onSettled: () => {
         removeRefreshToken();
         removeAccessToken();
@@ -85,7 +86,7 @@ function useAuth() {
     });
   };
 
-  return { useGetProfile, useLogin, useSignup, useLogout };
+  return { getProfile, login, signup, logout };
 }
 
 export default useAuth;

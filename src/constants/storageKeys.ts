@@ -3,4 +3,4 @@ const storageKeys = {
   DARK_MODE_STORAGE: "dark-mode-storage",
 } as const;
 
-export default storageKeys;
+export { storageKeys };

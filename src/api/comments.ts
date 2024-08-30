@@ -1,4 +1,5 @@
-import urls from "../constants/urls";
+import { AxiosError } from "axios";
+import { urls } from "../constants/urls";
 import {
   RequestCreateComment,
   RequestDeleteComment,
@@ -9,7 +10,8 @@ import {
   ResponseGetComments,
   ResponseUpdateComment,
 } from "../types/api/Comment";
-import { axiosInstance, axiosInstanceWithAccessToken } from "./axios";
+
+import { axiosInstance, axiosInstanceWithAccessToken } from "../network/_index";
 
 const { API_COMMENT } = urls;
 
@@ -27,7 +29,6 @@ const createCommentApi = async (params: RequestCreateComment) => {
       `${API_COMMENT}`,
       params
     );
-
   return data;
 };
 

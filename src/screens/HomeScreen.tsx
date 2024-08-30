@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch } from "react-native";
+import { Pressable, Switch } from "react-native";
 import ComponentContainer from "../components/ui/ComponentContainer";
 import CustomButton from "../components/ui/CustomButton";
 import CustomText from "../components/ui/CustomText";
@@ -7,13 +7,21 @@ import CustomView from "../components/ui/CustomView";
 import ScreenContainer from "../components/ui/ScreenContainer";
 import { useDarkModeStore } from "../store/useDarkModeStore";
 import CustomPressable from "../components/ui/CustomPressable";
+import useMarker from "../hooks/queries/useMarker";
+import useComment from "../hooks/queries/useComment";
 
 function HomeScreen() {
   const { toggleDarkMode, isDarkMode } = useDarkModeStore();
+  const { createMarker } = useMarker();
+  const { createComment } = useComment();
+  const mutation = createComment();
 
   return (
     <ScreenContainer>
+      <CustomButton onPress={() => mutation.mutate({})}>error</CustomButton>
+
       <Switch onChange={() => toggleDarkMode()} value={isDarkMode} />
+
       <ComponentContainer>
         <CustomPressable
           icon="disc"

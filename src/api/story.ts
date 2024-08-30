@@ -1,5 +1,4 @@
-import urls from "../constants/urls";
-import useAuth from "../hooks/queries/useAuth";
+import { urls } from "../constants/urls";
 import {
   RequestCreateStory,
   RequestDeleteStory,
@@ -10,7 +9,7 @@ import {
   ResponseGetStories,
   ResponseUpdateStory,
 } from "../types/_index";
-import { axiosInstance, axiosInstanceWithAccessToken } from "./axios";
+import { axiosInstance, axiosInstanceWithAccessToken } from "../network/_index";
 
 const { API_STORY } = urls;
 

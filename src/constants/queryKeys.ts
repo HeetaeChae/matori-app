@@ -20,6 +20,13 @@ const queryKeys = {
   GET_ALL_MARKERS: "getAllMarkers",
   GET_MY_MARKERS: "getMyMarkers",
   GET_USER_MARKERS: "getUserMarkers",
+  GET_MARKER: "getMarker",
+  // follow
+  FOLLOW: "follow",
+  GET_FOLLOWINGS: "getFollowings",
+  GET_FOLLOWERS: "getFollowers",
+  // like
+  LIKE: "like",
 } as const;
 
-export default queryKeys;
+export { queryKeys };

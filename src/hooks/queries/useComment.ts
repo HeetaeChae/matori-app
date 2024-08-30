@@ -11,7 +11,7 @@ import {
   updateCommentApi,
   deleteCommentApi,
 } from "../../api/comments";
-import queryKeys from "../../constants/queryKeys";
+import { queryKeys } from "../../constants/queryKeys";
 import {
   RequestCreateComment,
   RequestDeleteComment,
@@ -23,10 +23,10 @@ import {
   ResponseUpdateComment,
 } from "../../types/api/Comment";
 
-function useComment() {
-  const { COMMENT, GET_COMMENTS } = queryKeys;
+const { COMMENT, GET_COMMENTS } = queryKeys;
 
-  const getComments = async (
+function useComment() {
+  const getComments = (
     params: RequestGetComments,
     options?: UseQueryOptions<
       ResponseGetComments,
@@ -42,7 +42,7 @@ function useComment() {
     });
   };
 
-  const createComment = async (
+  const createComment = (
     options?: MutationOptions<
       ResponseCreateComment,
       AxiosError,
@@ -51,11 +51,12 @@ function useComment() {
   ) => {
     return useMutation({
       mutationFn: createCommentApi,
+      throwOnError: true,
       ...options,
     });
   };
 
-  const updateComment = async (
+  const updateComment = (
     options?: MutationOptions<
       ResponseUpdateComment,
       AxiosError,
@@ -68,7 +69,7 @@ function useComment() {
     });
   };
 
-  const deleteComment = async (
+  const deleteComment = (
     options?: MutationOptions<
       ResponseDeleteComment,
       AxiosError,
