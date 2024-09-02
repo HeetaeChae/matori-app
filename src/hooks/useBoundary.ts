@@ -1,41 +1,33 @@
 import { useEffect, useState } from "react";
+import { Boundary, Delta, Region } from "../types/Location";
+import useLocation from "./useLocation";
 
-interface Boundary {
-  northEast: {
-    latitude: number;
-    longitude: number;
-  };
-  southWest: {
-    latitude: number;
-    longitude: number;
-  };
-}
+function useBoundary() {
+  const { location } = useLocation();
 
-interface Region {
-  latitude: number;
-  longitude: number;
-  latitudeDelta: number;
-  longitudeDelta: number;
-}
-
-function useBoundary(region: Region) {
   const [boundary, setBoundary] = useState<null | Boundary>(null);
 
   useEffect(() => {
-    const { latitude, longitude, latitudeDelta, longitudeDelta } = region;
+    handleChangeBoundary(location);
+  }, [location]);
+
+  const handleChangeBoundary = (location: Region & Delta) => {
+    const { latitude, longitude, latitudeDelta, longitudeDelta } = location;
 
     const northEastLat = latitude + latitudeDelta / 2;
     const northEastLng = longitude + longitudeDelta / 2;
     const southWestLat = latitude - latitudeDelta / 2;
     const southWestLng = longitude - longitudeDelta / 2;
 
-    setBoundary({
+    const newBoundary = {
       northEast: { latitude: northEastLat, longitude: northEastLng },
       southWest: { latitude: southWestLat, longitude: southWestLng },
-    });
-  }, [region]);
+    };
 
-  return boundary;
+    setBoundary(newBoundary);
+  };
+
+  return { boundary, handleChangeBoundary };
 }
 
 export default useBoundary;

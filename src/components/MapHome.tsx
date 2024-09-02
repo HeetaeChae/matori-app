@@ -1,15 +1,23 @@
-import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import MapView from "react-native-maps";
 import { StyleSheet } from "react-native";
-import CustomButton from "./ui/CustomButton";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 import useLocation from "../hooks/useLocation";
+import useBoundary from "../hooks/useBoundary";
+import useMarker from "../hooks/queries/useMarker";
 
 function MapHome() {
-  const { location, boundary, handleChangeBoundary } = useLocation();
+  const { location } = useLocation();
+  const { boundary, handleChangeBoundary } = useBoundary();
+  const { getAllMarkers } = useMarker();
 
-  console.log(boundary);
+  const [markers, setMarkers] = useState([]);
+
+  useEffect(() => {
+    if (!boundary) {
+      return;
+    }
+  }, [boundary]);
 
   return (
     <MapView

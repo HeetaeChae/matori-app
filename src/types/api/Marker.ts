@@ -1,13 +1,4 @@
-interface Boundary {
-  northEast: {
-    latitude: number;
-    longitude: number;
-  };
-  southWest: {
-    latitude: number;
-    longitude: number;
-  };
-}
+import { Boundary } from "../Location";
 
 interface RequestGetMarkersByBoundary {
   boundary: Boundary;
