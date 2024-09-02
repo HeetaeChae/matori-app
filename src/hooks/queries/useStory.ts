@@ -15,7 +15,7 @@ import {
   getUserStoriesApi,
   updateStoryApi,
 } from "../../api/story";
-import queryKeys from "../../constants/queryKeys";
+import { queryKeys } from "../../constants/queryKeys";
 import {
   RequestCreateStory,
   RequestDeleteStory,

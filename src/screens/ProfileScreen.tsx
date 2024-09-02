@@ -1,8 +1,9 @@
 import React from "react";
 import { Text } from "react-native";
+import MapHome from "../components/MapHome";
 
 function ProfileScreen() {
-  return <Text>프로필</Text>;
+  return <MapHome />;
 }
 
 export default ProfileScreen;

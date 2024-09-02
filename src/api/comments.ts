@@ -1,4 +1,3 @@
-import { AxiosError } from "axios";
 import { urls } from "../constants/urls";
 import {
   RequestCreateComment,

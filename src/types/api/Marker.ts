@@ -1,3 +1,18 @@
+interface Boundary {
+  northEast: {
+    latitude: number;
+    longitude: number;
+  };
+  southWest: {
+    latitude: number;
+    longitude: number;
+  };
+}
+
+interface RequestGetMarkersByBoundary {
+  boundary: Boundary;
+}
+
 interface RequestGetMarkersByUserId {
   userId: number;
 }
@@ -19,6 +34,8 @@ interface RequestDeleteMarker {
 interface ResponseDeleteMarker {}
 
 export {
+  Boundary,
+  RequestGetMarkersByBoundary,
   RequestGetMarkersByUserId,
   RequestGetMarkerByStoryId,
   ResponseGetMarkers,

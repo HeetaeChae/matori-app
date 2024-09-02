@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect } from "react";
-import storageKeys from "../constants/storageKeys";
+import { storageKeys } from "../constants/storageKeys";
 import { useLoginStateStore } from "../store/useLoginStateStore";
 
 function useLoginState() {

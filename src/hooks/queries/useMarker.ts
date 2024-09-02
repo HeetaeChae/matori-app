@@ -13,6 +13,7 @@ import {
   RequestCreateMarker,
   ResponseDeleteMarker,
   RequestDeleteMarker,
+  RequestGetMarkersByBoundary,
 } from "../../types/api/Marker";
 import { queryKeys } from "../../constants/queryKeys";
 import {
@@ -34,62 +35,74 @@ const {
 
 function useMarker() {
   const getAllMarkers = (
+    params: RequestGetMarkersByBoundary,
     options?: UseQueryOptions<
       ResponseGetMarkers,
       AxiosError,
       ResponseGetMarkers,
-      [typeof MARKER, typeof GET_ALL_MARKERS]
+      [typeof MARKER, typeof GET_ALL_MARKERS, typeof params.boundary]
     >
   ) => {
     return useQuery({
-      queryKey: [MARKER, GET_ALL_MARKERS],
-      queryFn: getAllMarkersApi,
+      queryKey: [MARKER, GET_ALL_MARKERS, params.boundary],
+      queryFn: () => getAllMarkersApi(params),
       ...options,
     });
   };
 
   const getMyMarkers = (
+    params: RequestGetMarkersByBoundary,
     options?: UseQueryOptions<
       ResponseGetMarkers,
       AxiosError,
       ResponseGetMarkers,
-      [typeof MARKER, typeof GET_MY_MARKERS]
+      [typeof MARKER, typeof GET_MY_MARKERS, typeof params.boundary]
     >
   ) => {
     return useQuery({
-      queryKey: [MARKER, GET_MY_MARKERS],
-      queryFn: getMyMarkersApi,
+      queryKey: [MARKER, GET_MY_MARKERS, params.boundary],
+      queryFn: () => getMyMarkersApi(params),
       ...options,
     });
   };
 
   const getUserMarkers = (
-    params: RequestGetMarkersByUserId,
+    params: RequestGetMarkersByUserId & RequestGetMarkersByBoundary,
     options?: UseQueryOptions<
       ResponseGetMarkers,
       AxiosError,
       ResponseGetMarkers,
-      [typeof MARKER, typeof GET_USER_MARKERS, typeof params.userId]
+      [
+        typeof MARKER,
+        typeof GET_USER_MARKERS,
+        typeof params.userId,
+        typeof params.boundary
+      ]
     >
   ) => {
     return useQuery({
-      queryKey: [MARKER, GET_USER_MARKERS, params.userId],
+      queryKey: [MARKER, GET_USER_MARKERS, params.userId, params.boundary],
       queryFn: () => getUserMarkersApi(params),
       ...options,
     });
   };
 
   const getMarker = (
-    params: RequestGetMarkerByStoryId,
+    params: RequestGetMarkerByStoryId & RequestGetMarkersByBoundary,
     options?: UseQueryOptions<
       ResponseGetMarkers,
       AxiosError,
       ResponseGetMarkers,
-      [typeof MARKER, typeof GET_MARKER, typeof params.storyId]
+      [
+        typeof MARKER,
+        typeof GET_MARKER,
+        typeof params.storyId,
+        typeof params.boundary
+      ]
     >
   ) => {
     return useQuery({
-      queryKey: [MARKER, GET_MARKER, params.storyId],
+      queryKey: [MARKER, GET_MARKER, params.storyId, params.boundary],
       queryFn: () => getMarkerApi(params),
       ...options,
     });

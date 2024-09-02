@@ -1,7 +1,9 @@
 import {
+  Boundary,
   RequestCreateMarker,
   RequestDeleteMarker,
   RequestGetMarkerByStoryId,
+  RequestGetMarkersByBoundary,
   RequestGetMarkersByUserId,
   ResponseCreateMarker,
   ResponseDeleteMarker,
@@ -13,33 +15,41 @@ import { axiosInstance, axiosInstanceWithAccessToken } from "../network/_index";
 
 const { API_MARKER } = urls;
 
-const getAllMarkersApi = async () => {
+const boundaryUrl = (boundary: Boundary) => {
+  return `northEastLat=${boundary.northEast.latitude}&northEastLng=${boundary.northEast.longitude}&southWestLat=${boundary.southWest.latitude}&southWestLng=${boundary.southWest.longitude}`;
+};
+
+const getAllMarkersApi = async (params: RequestGetMarkersByBoundary) => {
   const { data } = await axiosInstance.get<ResponseGetMarkers>(
-    `${API_MARKER}/all`
+    `${API_MARKER}/all?${boundaryUrl(params.boundary)}`
   );
 
   return data;
 };
 
-const getMyMarkersApi = async () => {
+const getMyMarkersApi = async (params: RequestGetMarkersByBoundary) => {
   const { data } = await axiosInstanceWithAccessToken.get<ResponseGetMarkers>(
-    `${API_MARKER}/my`
+    `${API_MARKER}/my?${boundaryUrl(params.boundary)}}`
   );
 
   return data;
 };
 
-const getUserMarkersApi = async (params: RequestGetMarkersByUserId) => {
+const getUserMarkersApi = async (
+  params: RequestGetMarkersByUserId & RequestGetMarkersByBoundary
+) => {
   const { data } = await axiosInstance.get<ResponseGetMarkers>(
-    `${API_MARKER}/${params.userId}`
+    `${API_MARKER}/${params.userId}/user?${boundaryUrl(params.boundary)}`
   );
 
   return data;
 };
 
-const getMarkerApi = async (params: RequestGetMarkerByStoryId) => {
+const getMarkerApi = async (
+  params: RequestGetMarkerByStoryId & RequestGetMarkersByBoundary
+) => {
   const { data } = await axiosInstance.get<ResponseGetMarkers>(
-    `${API_MARKER}/${params.storyId}`
+    `${API_MARKER}/${params.storyId}/story?${boundaryUrl(params.boundary)}`
   );
 
   return data;
