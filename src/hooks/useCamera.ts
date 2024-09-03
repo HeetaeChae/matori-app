@@ -45,8 +45,6 @@ function useCamera(
           description:
             "카메라를 사용하기 위해 앱이 카메라에 접근할 수 있도록 허용해주세요.",
         });
-      } else {
-        //
       }
     })();
   }, []);

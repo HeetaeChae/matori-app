@@ -4,14 +4,18 @@ import * as Location from "expo-location";
 import showSettingsAlert from "../utils/showSettingsAlert";
 import { initialRegion, initialDelta } from "../constants/initialLocation";
 import { Region, Delta } from "../types/Location";
+import { AppStateStatus } from "react-native";
 
-function useLocation() {
+function useLocation(appStatusStatus: AppStateStatus) {
   const [location, setLocation] = useState<Region & Delta>({
     ...initialRegion,
     ...initialDelta,
   });
 
   useEffect(() => {
+    if (appStatusStatus !== "active") {
+      return;
+    }
     (async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
@@ -30,7 +34,7 @@ function useLocation() {
 
       setLocation(newLocation);
     })();
-  }, []);
+  }, [appStatusStatus]);
 
   return { location };
 }

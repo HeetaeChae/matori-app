@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { Boundary, Delta, Region } from "../types/Location";
-import useLocation from "./useLocation";
 
-function useBoundary() {
-  const { location } = useLocation();
-
+function useBoundary(location: Region & Delta) {
   const [boundary, setBoundary] = useState<null | Boundary>(null);
 
   useEffect(() => {

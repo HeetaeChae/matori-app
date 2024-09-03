@@ -4,6 +4,7 @@ import CustomButton from "../components/ui/CustomButton";
 import ScreenContainer from "../components/ui/ScreenContainer";
 import navigations from "../constants/navigations";
 import useMediaLibrary from "../hooks/useMediaLibrary";
+import { useAppStateStatusStore } from "../store/useAppStateStatusStore";
 import { StoryStackNavigationProp } from "../types/ParamLists";
 
 interface StoryScreenProps {
@@ -11,7 +12,8 @@ interface StoryScreenProps {
 }
 
 function StoryScreen({ navigation }: StoryScreenProps) {
-  useMediaLibrary();
+  const { appStatusStatus } = useAppStateStatusStore();
+  useMediaLibrary(appStatusStatus);
 
   return (
     <ScreenContainer>

@@ -4,9 +4,11 @@ import {
   QueryErrorResetBoundary,
   useQuery,
 } from "@tanstack/react-query";
-import { Text, View } from "react-native";
+import { useEffect } from "react";
+import { AppState, AppStateStatus, Text, View } from "react-native";
 import { ErrorBoundary } from "./src/components/ErrorBoundary";
 import RootNavigator from "./src/navigations/RootNavigator";
+import { useAppStateStatusStore } from "./src/store/useAppStateStatusStore";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,6 +22,23 @@ const queryClient = new QueryClient({
 });
 
 export default function App() {
+  const { handleAppStateStatus, appStatusStatus } = useAppStateStatusStore(
+    (state) => state
+  );
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener(
+      "change",
+      (nextAppState: AppStateStatus) => {
+        handleAppStateStatus(nextAppState);
+      }
+    );
+
+    return () => {
+      subscription.remove();
+    };
+  }, [handleAppStateStatus]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <QueryErrorResetBoundary>

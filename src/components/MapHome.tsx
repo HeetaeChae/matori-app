@@ -1,23 +1,15 @@
 import MapView from "react-native-maps";
 import { StyleSheet } from "react-native";
-import { useEffect, useState } from "react";
 
 import useLocation from "../hooks/useLocation";
 import useBoundary from "../hooks/useBoundary";
-import useMarker from "../hooks/queries/useMarker";
+import { useAppStateStatusStore } from "../store/useAppStateStatusStore";
 
 function MapHome() {
-  const { location } = useLocation();
-  const { boundary, handleChangeBoundary } = useBoundary();
-  const { getAllMarkers } = useMarker();
+  const { appStatusStatus } = useAppStateStatusStore();
 
-  const [markers, setMarkers] = useState([]);
-
-  useEffect(() => {
-    if (!boundary) {
-      return;
-    }
-  }, [boundary]);
+  const { location } = useLocation(appStatusStatus);
+  const { boundary, handleChangeBoundary } = useBoundary(location);
 
   return (
     <MapView
