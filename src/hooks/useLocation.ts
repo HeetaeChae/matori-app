@@ -2,18 +2,30 @@ import { useEffect, useState } from "react";
 import * as Location from "expo-location";
 
 import showSettingsAlert from "../utils/showSettingsAlert";
-import { initialRegion, initialDelta } from "../constants/initialLocation";
+import {
+  initialRegion,
+  initialLargeScaleDelta,
+  initialSmallScaleDelta,
+} from "../constants/initialLocation";
 import { Region, Delta } from "../types/Location";
 import { AppStateStatus } from "react-native";
 
-function useLocation(appStatusStatus: AppStateStatus) {
+interface UseLocationProps {
+  appStateStatus: AppStateStatus;
+  mapScale: "large" | "small";
+}
+
+function useLocation({ appStateStatus, mapScale }: UseLocationProps) {
+  const initialDelta =
+    mapScale === "large" ? initialLargeScaleDelta : initialSmallScaleDelta;
+
   const [location, setLocation] = useState<Region & Delta>({
     ...initialRegion,
     ...initialDelta,
   });
 
   useEffect(() => {
-    if (appStatusStatus !== "active") {
+    if (appStateStatus !== "active") {
       return;
     }
     (async () => {
@@ -34,9 +46,13 @@ function useLocation(appStatusStatus: AppStateStatus) {
 
       setLocation(newLocation);
     })();
-  }, [appStatusStatus]);
+  }, [appStateStatus]);
 
-  return { location };
+  const handleChangeLocation = (newLocation: Region & Delta) => {
+    setLocation(newLocation);
+  };
+
+  return { location, handleChangeLocation };
 }
 
 export default useLocation;

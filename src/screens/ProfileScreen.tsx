@@ -1,9 +1,10 @@
 import React from "react";
 import { Text } from "react-native";
-import MapHome from "../components/MapHome";
+import BoundaryMap from "../components/BoundaryMap";
+import CenterMap from "../components/CenterMap";
 
 function ProfileScreen() {
-  return <MapHome />;
+  return <CenterMap />;
 }
 
 export default ProfileScreen;

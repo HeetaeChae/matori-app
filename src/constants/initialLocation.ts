@@ -8,4 +8,14 @@ const initialDelta = {
   longitudeDelta: 0.0421,
 } as const;
 
-export { initialRegion, initialDelta };
+const initialLargeScaleDelta = {
+  latitudeDelta: 0.0922,
+  longitudeDelta: 0.0421,
+} as const;
+
+const initialSmallScaleDelta = {
+  latitudeDelta: 0.0028,
+  longitudeDelta: 0.0019,
+};
+
+export { initialRegion, initialLargeScaleDelta, initialSmallScaleDelta };

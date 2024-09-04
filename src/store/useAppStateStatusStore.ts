@@ -3,12 +3,12 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface AppStateStatusStore {
-  appStatusStatus: AppStateStatus;
+  appStateStatus: AppStateStatus;
   handleAppStateStatus: (newAppStateStatus: AppStateStatus) => void;
 }
 
 export const useAppStateStatusStore = create<AppStateStatusStore>((set) => ({
-  appStatusStatus: "active",
+  appStateStatus: "active",
   handleAppStateStatus: (newAppStateStatus: AppStateStatus) =>
-    set({ appStatusStatus: newAppStateStatus }),
+    set({ appStateStatus: newAppStateStatus }),
 }));
