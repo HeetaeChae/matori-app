@@ -1,79 +1,50 @@
 import React from "react";
-import { Pressable, Switch } from "react-native";
-import ComponentContainer from "../components/ui/ComponentContainer";
+import { Switch } from "react-native";
 import CustomButton from "../components/ui/CustomButton";
 import CustomText from "../components/ui/CustomText";
 import CustomView from "../components/ui/CustomView";
+
 import ScreenContainer from "../components/ui/ScreenContainer";
 import { useDarkModeStore } from "../store/useDarkModeStore";
-import CustomPressable from "../components/ui/CustomPressable";
-import useMarker from "../hooks/queries/useMarker";
-import useComment from "../hooks/queries/useComment";
 
 function HomeScreen() {
   const { toggleDarkMode, isDarkMode } = useDarkModeStore();
-  const { createMarker } = useMarker();
-  const { createComment } = useComment();
-  const mutation = createComment();
 
   return (
     <ScreenContainer>
-      <CustomButton onPress={() => mutation.mutate({})}>error</CustomButton>
-
       <Switch onChange={() => toggleDarkMode()} value={isDarkMode} />
-
-      <ComponentContainer>
-        <CustomPressable
-          icon="disc"
-          hasCircleOutline
-          type="secondary"
-          size="normal"
-        />
-        <CustomPressable
-          icon="heart"
-          text="30"
-          type="secondary"
-          size="normal"
-        />
-      </ComponentContainer>
-      <ComponentContainer>
-        <CustomButton icon="home" type="secondary">
-          primary-content
-        </CustomButton>
-        <CustomButton type="outlined">outlined-content</CustomButton>
-        <CustomButton type="link">link-content</CustomButton>
-        <CustomButton type="secondary">secondary-content</CustomButton>
-        <CustomButton isFull>primary-full</CustomButton>
-        <CustomButton isFull type="outlined">
-          outlined-full
-        </CustomButton>
-        <CustomButton isFull type="link">
-          link-full
-        </CustomButton>
-        <CustomButton isFull type="secondary">
-          secondary-full
-        </CustomButton>
-      </ComponentContainer>
-      <ComponentContainer>
-        <CustomText isBold type="header">
-          header-bold
-        </CustomText>
-        <CustomText isBold>body-bold</CustomText>
-        <CustomText isBold type="description">
-          description-bold
-        </CustomText>
-        <CustomText type="header">header</CustomText>
-        <CustomText type="body">body</CustomText>
-        <CustomText type="description">description</CustomText>
-      </ComponentContainer>
-      <ComponentContainer>
-        <CustomView isCenter>
-          <CustomText>default</CustomText>
-        </CustomView>
-        <CustomView type="card" isCenter styleProp={{ padding: 30 }}>
-          <CustomText>card</CustomText>
-        </CustomView>
-      </ComponentContainer>
+      <CustomView type="card" hasPadding isCenter>
+        <CustomText>dd</CustomText>
+        <CustomText>dd</CustomText>
+      </CustomView>
+      <CustomButton icon="add-circle">primary</CustomButton>
+      <CustomButton type="outlined" styleProp={{ margin: 10 }}>
+        outlined
+      </CustomButton>
+      <CustomButton type="secondary" hasShadow styleProp={{ margin: 10 }}>
+        secondary
+      </CustomButton>
+      <CustomButton type="link" styleProp={{ margin: 10 }}>
+        link
+      </CustomButton>
+      <CustomButton type="borderedSecondary" styleProp={{ margin: 10 }}>
+        borderedSecondary
+      </CustomButton>
+      <CustomButton isFull styleProp={{ margin: 10 }}>
+        primary
+      </CustomButton>
+      <CustomButton type="outlined" isFull styleProp={{ margin: 10 }}>
+        outlined
+      </CustomButton>
+      <CustomButton type="secondary" isFull styleProp={{ margin: 10 }}>
+        secondary
+      </CustomButton>
+      <CustomButton type="link" isFull styleProp={{ margin: 10 }}>
+        link
+      </CustomButton>
+      <CustomButton type="borderedSecondary" isFull styleProp={{ margin: 10 }}>
+        borderedSecondary
+      </CustomButton>
     </ScreenContainer>
   );
 }

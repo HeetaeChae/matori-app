@@ -6,3 +6,4 @@ export * from "./fontWeights";
 export * from "./queryKeys";
 export * from "./storageKeys";
 export * from "./urls";
+export * from "./shadow";
