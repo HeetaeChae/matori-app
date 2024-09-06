@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { Delta, Region } from "../types/Location";
 
 function useMapCenter(location: Region & Delta) {
-  const [mapCenter, setMapCenter] = useState<null | Region>(null);
+  const [mapCenter, setMapCenter] = useState<Region>({
+    latitude: location.latitude,
+    longitude: location.longitude,
+  });
 
   useEffect(() => {
     handleChangeMapCenter(location);

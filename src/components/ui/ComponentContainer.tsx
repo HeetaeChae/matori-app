@@ -3,7 +3,11 @@ import { useDarkModeStore } from "../../store/useDarkModeStore";
 import { ReactNode } from "react";
 import { StyleSheet, View, ViewProps, ViewStyle } from "react-native";
 
-import { darkColors, lightColors, spacing } from "../../constants/_index";
+import {
+  darkColors,
+  lightColors,
+  spacing,
+} from "../../constants/styles/_index";
 
 interface ComponentContainerProps extends ViewProps {
   isCenter?: boolean;

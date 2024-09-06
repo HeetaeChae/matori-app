@@ -15,7 +15,7 @@ import {
   fontWeights,
   fontSizes,
   shadow,
-} from "../../constants/_index";
+} from "../../constants/styles/_index";
 import { useDarkModeStore } from "../../store/useDarkModeStore";
 
 interface CustomButtonProps extends PressableProps {

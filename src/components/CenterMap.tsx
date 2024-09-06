@@ -5,6 +5,8 @@ import { Ionicons } from "@expo/vector-icons";
 import useLocation from "../hooks/useLocation";
 import { useAppStateStatusStore } from "../store/useAppStateStatusStore";
 import useMapCenter from "../hooks/useMapCenter";
+import { palette } from "../constants/styles/colors";
+import useGeocoding from "../hooks/queries/useGeocoding";
 
 function CenterMap() {
   const { appStateStatus } = useAppStateStatusStore();
@@ -15,8 +17,11 @@ function CenterMap() {
   });
 
   const { mapCenter } = useMapCenter(location);
+  const { getAddress } = useGeocoding();
 
-  console.log(mapCenter);
+  const address = getAddress(mapCenter);
+
+  console.log(address);
 
   return (
     <>
@@ -26,15 +31,7 @@ function CenterMap() {
         showsUserLocation
         onRegionChangeComplete={handleChangeLocation}
       />
-      <Ionicons
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-        }}
-        name="add"
-        size={30}
-      />
+      <Ionicons style={styles.cursor} name="add" size={30} />
     </>
   );
 }
@@ -44,5 +41,12 @@ export default CenterMap;
 const styles = StyleSheet.create({
   map: {
     flex: 1,
+  },
+  cursor: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: [{ translateX: -15 }, { translateY: -15 }],
+    color: palette.BRAND_BLUE,
   },
 });

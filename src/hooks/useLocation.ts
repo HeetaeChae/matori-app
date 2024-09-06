@@ -38,13 +38,7 @@ function useLocation({ appStateStatus, mapScale }: UseLocationProps) {
         });
       }
 
-      const {
-        coords: { latitude, longitude },
-      } = await Location.getCurrentPositionAsync({});
-
-      const newLocation = { latitude, longitude, ...initialDelta };
-
-      setLocation(newLocation);
+      handleCurrentLocation();
     })();
   }, [appStateStatus]);
 
@@ -52,7 +46,17 @@ function useLocation({ appStateStatus, mapScale }: UseLocationProps) {
     setLocation(newLocation);
   };
 
-  return { location, handleChangeLocation };
+  const handleCurrentLocation = async () => {
+    const {
+      coords: { latitude, longitude },
+    } = await Location.getCurrentPositionAsync({});
+
+    const newLocation = { latitude, longitude, ...initialDelta };
+
+    setLocation(newLocation);
+  };
+
+  return { location, handleChangeLocation, handleCurrentLocation };
 }
 
 export default useLocation;

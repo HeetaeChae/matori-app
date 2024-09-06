@@ -27,6 +27,9 @@ const queryKeys = {
   GET_FOLLOWERS: "getFollowers",
   // like
   LIKE: "like",
+  // geocoding
+  GEOCODING: "geocoding",
+  GET_ADDRESS: "getAddress",
 } as const;
 
 export { queryKeys };

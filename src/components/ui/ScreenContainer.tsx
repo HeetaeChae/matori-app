@@ -4,7 +4,7 @@ import { EdgeInsets, useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useDarkModeStore } from "../../store/useDarkModeStore";
 
-import { darkColors, lightColors } from "../../constants/_index";
+import { darkColors, lightColors } from "../../constants/styles/_index";
 
 interface ScreenContainerProps {
   children: ReactNode;

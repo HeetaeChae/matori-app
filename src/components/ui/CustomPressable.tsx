@@ -7,9 +7,9 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useDarkModeStore } from "../../store/useDarkModeStore";
-import { darkColors, lightColors } from "../../constants/colors";
-import { fontWeights } from "../../constants/fontWeights";
-import { fontSizes } from "../../constants/fontSizes";
+import { darkColors, lightColors } from "../../constants/styles/colors";
+import { fontWeights } from "../../constants/styles/fontWeights";
+import { fontSizes } from "../../constants/styles/fontSizes";
 
 interface CustomPressableProps extends PressableProps {
   hasCircleOutline?: boolean;

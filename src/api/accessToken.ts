@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { axiosInstance } from "../network/axiosInstance";
-import { ResponseAccessToken } from "../types/_index";
+import { ResponseAccessToken } from "../types/api/Auth";
 import { urls } from "../constants/urls";
 
 const { API_AUTH } = urls;

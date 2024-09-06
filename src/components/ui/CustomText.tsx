@@ -6,7 +6,7 @@ import {
   lightColors,
   fontSizes,
   fontWeights,
-} from "../../constants/_index";
+} from "../../constants/styles/_index";
 import { useDarkModeStore } from "../../store/useDarkModeStore";
 
 interface CustomTextProps extends TextProps {

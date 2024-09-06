@@ -1,4 +1,4 @@
-const palette = {
+export const palette = {
   BRAND_BLUE: "#1DA1F2",
   WHITE: "#FFFFFF",
   BLACK: "#14171A",
@@ -20,7 +20,7 @@ export const lightColors = {
   // 진한 회색
   TEXT_SECONDARY: palette.DARK_GRAY,
   // 옅은 회색
-  TEXT_SECONDARY_2: palette.LIGHT_GRAY,
+  TEXT_SECONDARY_2: palette.DARK_GRAY,
   // 흰색
   BACKGROUND_PRIMARY: palette.WHITE,
   // 매우 옅은 회색

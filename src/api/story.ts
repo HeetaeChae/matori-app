@@ -8,7 +8,7 @@ import {
   ResponseDeleteStory,
   ResponseGetStories,
   ResponseUpdateStory,
-} from "../types/_index";
+} from "../types/api/Story";
 import { axiosInstance, axiosInstanceWithAccessToken } from "../network/_index";
 
 const { API_STORY } = urls;

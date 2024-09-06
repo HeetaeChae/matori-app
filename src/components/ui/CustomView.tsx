@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 import { StyleSheet, View, ViewProps, ViewStyle } from "react-native";
 
-import { darkColors, lightColors } from "../../constants/colors";
-import { spacing } from "../../constants/spacing";
+import { darkColors, lightColors } from "../../constants/styles/colors";
+import { spacing } from "../../constants/styles/spacing";
 import { useDarkModeStore } from "../../store/useDarkModeStore";
 
 interface CustomView extends ViewProps {
