@@ -1,5 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
+
 import navigations from "../../constants/navigations";
 import SettingsScreen from "../../screens/SettingsScreen";
 import { BottomTabParamList } from "../../types/ParamLists";
@@ -18,12 +20,12 @@ function BottomTabNavigator() {
       <BottomTab.Screen
         name={navigations.HOME_STACK}
         component={HomeStackNavigator}
-        options={{ tabBarShowLabel: false }}
-      />
-      <BottomTab.Screen
-        name={navigations.PROFILE_STACK}
-        component={ProfileStackNavigator}
-        options={{ tabBarShowLabel: false }}
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color }) => (
+            <Ionicons color={color} name="home-outline" size={25} />
+          ),
+        }}
       />
       <BottomTab.Screen
         name={navigations.STORY_STACK}
@@ -36,12 +38,30 @@ function BottomTabNavigator() {
                 ? "none"
                 : "flex",
           },
+          tabBarIcon: ({ color }) => (
+            <Ionicons color={color} name="newspaper-outline" size={25} />
+          ),
         })}
+      />
+      <BottomTab.Screen
+        name={navigations.PROFILE_STACK}
+        component={ProfileStackNavigator}
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color }) => (
+            <Ionicons color={color} name="person-outline" size={25} />
+          ),
+        }}
       />
       <BottomTab.Screen
         name={navigations.SETTINGS}
         component={SettingsScreen}
-        options={{ tabBarShowLabel: false }}
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color }) => (
+            <Ionicons color={color} name="settings" size={25} />
+          ),
+        }}
       />
     </BottomTab.Navigator>
   );

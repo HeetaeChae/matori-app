@@ -1,57 +1,46 @@
 import { StyleSheet, View } from "react-native";
-import { shopCategories, ShopCategory } from "../constants/shopCategories";
+import { shopCategories, ShopCategoryValue } from "../constants/shopCategories";
 import CustomButton from "./ui/CustomButton";
+import { spacing } from "../constants/styles/spacing";
+import { EdgeInsets, useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface ShopCategoryButtonsProps {
-  shopCategory: ShopCategory;
-  onSelectShopCategory: (newShopCategory: ShopCategory) => void;
+  selectedShopCategory: ShopCategoryValue;
+  onSelectShopCategory: (shopCategoryValue: ShopCategoryValue) => void;
 }
 
 function ShopCategoryButtons({
-  shopCategory,
+  selectedShopCategory,
   onSelectShopCategory,
 }: ShopCategoryButtonsProps) {
+  const insets: EdgeInsets = useSafeAreaInsets();
+
   return (
-    <View style={styles.view}>
-      <CustomButton
-        type={shopCategory === shopCategories.ALL ? "outlined" : "secondary"}
-        hasShadow
-        onPress={() => onSelectShopCategory(shopCategories.ALL)}
-      >
-        ALL 전체
-      </CustomButton>
-      <CustomButton
-        type={
-          shopCategory === shopCategories.RESTAURANT ? "outlined" : "secondary"
-        }
-        icon="fast-food"
-        hasShadow
-        onPress={() => onSelectShopCategory(shopCategories.RESTAURANT)}
-      >
-        음식점
-      </CustomButton>
-      <CustomButton
-        type={shopCategory === shopCategories.PUB ? "outlined" : "secondary"}
-        icon="beer"
-        hasShadow
-        onPress={() => onSelectShopCategory(shopCategories.PUB)}
-      >
-        주점
-      </CustomButton>
-      <CustomButton
-        type={shopCategory === shopCategories.CAFE ? "outlined" : "secondary"}
-        icon="cafe"
-        hasShadow
-        onPress={() => onSelectShopCategory(shopCategories.CAFE)}
-      >
-        카페
-      </CustomButton>
+    <View style={styles(insets).buttonsContainer}>
+      {shopCategories.map((item, index) => (
+        <CustomButton
+          key={index}
+          hasShadow
+          type={item.value === selectedShopCategory ? "outlined" : "secondary"}
+          onPress={() => onSelectShopCategory(item.value)}
+          icon={item.icon}
+        >
+          {item.label}
+        </CustomButton>
+      ))}
     </View>
   );
 }
 
 export default ShopCategoryButtons;
 
-const styles = StyleSheet.create({
-  view: { flexDirection: "row", gap: 7, zIndex: 1 },
-});
+const styles = (insets: EdgeInsets) =>
+  StyleSheet.create({
+    buttonsContainer: {
+      position: "absolute",
+      top: insets.top,
+      left: spacing.medium,
+      flexDirection: "row",
+      gap: 7,
+    },
+  });

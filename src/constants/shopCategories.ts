@@ -1,10 +1,29 @@
-const shopCategories = {
-  ALL: "전체",
-  RESTAURANT: "음식점",
-  PUB: "주점",
-  CAFE: "카페",
-} as const;
+type ShopCategoryLabel = "음식점" | "주점" | "카페";
+type ShopCategoryValue = "restaurant" | "pub" | "cafe";
+type ShopCategoryIcon = "restaurant" | "beer" | "cafe";
 
-type ShopCategory = (typeof shopCategories)[keyof typeof shopCategories];
+interface ShopCategory {
+  label: ShopCategoryLabel;
+  value: ShopCategoryValue;
+  icon: ShopCategoryIcon;
+}
 
-export { shopCategories, ShopCategory };
+const shopCategories: ShopCategory[] = [
+  {
+    label: "음식점",
+    value: "restaurant",
+    icon: "restaurant",
+  },
+  {
+    label: "주점",
+    value: "pub",
+    icon: "beer",
+  },
+  {
+    label: "카페",
+    value: "cafe",
+    icon: "cafe",
+  },
+] as const;
+
+export { shopCategories, ShopCategory, ShopCategoryLabel, ShopCategoryValue };

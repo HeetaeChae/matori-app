@@ -1,5 +1,5 @@
 import MapView from "react-native-maps";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import useLocation from "../hooks/useLocation";
@@ -7,21 +7,22 @@ import { useAppStateStatusStore } from "../store/useAppStateStatusStore";
 import useMapCenter from "../hooks/useMapCenter";
 import { palette } from "../constants/styles/colors";
 import useGeocoding from "../hooks/queries/useGeocoding";
+import CurrentLocationButton from "./CurrentLocationButton";
 
 function CenterMap() {
   const { appStateStatus } = useAppStateStatusStore();
 
-  const { location, handleChangeLocation } = useLocation({
-    appStateStatus,
-    mapScale: "small",
-  });
+  const { location, handleChangeLocation, handleCurrentLocation } = useLocation(
+    {
+      appStateStatus,
+      mapScale: "small",
+    }
+  );
 
   const { mapCenter } = useMapCenter(location);
-  const { getAddress } = useGeocoding();
+  // const { getAddress } = useGeocoding();
 
-  const address = getAddress(mapCenter);
-
-  console.log(address);
+  // const address = getAddress(mapCenter);
 
   return (
     <>
@@ -31,7 +32,8 @@ function CenterMap() {
         showsUserLocation
         onRegionChangeComplete={handleChangeLocation}
       />
-      <Ionicons style={styles.cursor} name="add" size={30} />
+      <View style={styles.cursor} />
+      <CurrentLocationButton onCurrentLocation={handleCurrentLocation} />
     </>
   );
 }
@@ -46,7 +48,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: "50%",
     left: "50%",
-    transform: [{ translateX: -15 }, { translateY: -15 }],
-    color: palette.BRAND_BLUE,
+    width: 16,
+    height: 16,
+    borderWidth: 2,
+    borderColor: palette.BRAND_BLUE,
+    transform: [{ translateX: -8 }, { translateY: -8 }],
   },
 });

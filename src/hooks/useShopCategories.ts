@@ -1,16 +1,20 @@
 import { useState } from "react";
-import { shopCategories, ShopCategory } from "../constants/shopCategories";
+import { ShopCategoryValue } from "../constants/shopCategories";
 
 function useShopCategories() {
-  const [shopCategory, setShopCategory] = useState<ShopCategory>(
-    shopCategories.ALL
-  );
+  const [selectedShopCategory, setSelectedShopCategory] = useState<
+    ShopCategoryValue | undefined
+  >();
 
-  const handleSelectShopCategory = (newShopCategory: ShopCategory) => {
-    setShopCategory(newShopCategory);
+  const handleSelectShopCategory = (shopCategoryValue: ShopCategoryValue) => {
+    if (selectedShopCategory === shopCategoryValue) {
+      setSelectedShopCategory(undefined);
+    } else {
+      setSelectedShopCategory(shopCategoryValue);
+    }
   };
 
-  return { shopCategory, handleSelectShopCategory };
+  return { selectedShopCategory, handleSelectShopCategory };
 }
 
 export default useShopCategories;

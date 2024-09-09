@@ -1,24 +1,15 @@
 import MapView from "react-native-maps";
-import { StyleSheet, Switch, View } from "react-native";
+import { StyleSheet } from "react-native";
 
 import useLocation from "../hooks/useLocation";
 import { useAppStateStatusStore } from "../store/useAppStateStatusStore";
 import useMapBoundary from "../hooks/useMapBoundary";
 import ShopCategoryButtons from "./ShopCategoryButtons";
-import { EdgeInsets, useSafeAreaInsets } from "react-native-safe-area-context";
-import { spacing } from "../constants/styles/spacing";
-import { useDarkModeStore } from "../store/useDarkModeStore";
-import CustomView from "./ui/CustomView";
-import CustomText from "./ui/CustomText";
-import CircleButton from "./ui/CircleButton";
-import { useState } from "react";
 import useShopCategories from "../hooks/useShopCategories";
+import CurrentLocationButton from "./CurrentLocationButton";
 
 function BoundaryMap() {
-  const insets: EdgeInsets = useSafeAreaInsets();
-
   const { appStateStatus } = useAppStateStatusStore();
-  const { toggleDarkMode, isDarkMode } = useDarkModeStore();
   const { location, handleChangeLocation, handleCurrentLocation } = useLocation(
     {
       appStateStatus,
@@ -26,49 +17,30 @@ function BoundaryMap() {
     }
   );
   const { mapBoundary } = useMapBoundary(location);
-  const { shopCategory, handleSelectShopCategory } = useShopCategories();
+  const { selectedShopCategory, handleSelectShopCategory } =
+    useShopCategories();
 
   return (
     <>
       <MapView
-        style={styles(insets).map}
+        style={styles.map}
         region={location}
         showsUserLocation
         onRegionChangeComplete={handleChangeLocation}
       />
-      <View style={styles(insets).buttonsContainer}>
-        <ShopCategoryButtons
-          onSelectShopCategory={handleSelectShopCategory}
-          shopCategory={shopCategory}
-        />
-      </View>
-      <View style={styles(insets).circleButtonContainer}>
-        <CircleButton
-          icon="paper-plane"
-          hasShadow
-          styleProp={{ alignSelf: "flex-end" }}
-          onPress={handleCurrentLocation}
-        />
-      </View>
+      <ShopCategoryButtons
+        onSelectShopCategory={handleSelectShopCategory}
+        selectedShopCategory={selectedShopCategory}
+      />
+      <CurrentLocationButton onCurrentLocation={handleCurrentLocation} />
     </>
   );
 }
 
 export default BoundaryMap;
 
-const styles = (insets: EdgeInsets) =>
-  StyleSheet.create({
-    map: {
-      flex: 1,
-    },
-    buttonsContainer: {
-      position: "absolute",
-      top: insets.top,
-      left: spacing.medium,
-    },
-    circleButtonContainer: {
-      position: "absolute",
-      bottom: spacing.medium,
-      right: spacing.medium,
-    },
-  });
+const styles = StyleSheet.create({
+  map: {
+    flex: 1,
+  },
+});
