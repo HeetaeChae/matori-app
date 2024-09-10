@@ -52,7 +52,6 @@ const BottomSheetContainer = forwardRef<
 
   return (
     <>
-      <CustomButton onPress={onOpenSheet}>open</CustomButton>
       <BottomSheet
         ref={ref}
         snapPoints={snapPoints}

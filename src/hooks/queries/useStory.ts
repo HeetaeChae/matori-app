@@ -25,7 +25,7 @@ import {
   ResponseDeleteStory,
   ResponseGetStories,
   ResponseUpdateStory,
-} from "../../types/_index";
+} from "../../types/api/Story";
 
 const {
   STORY,

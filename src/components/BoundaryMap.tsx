@@ -8,6 +8,7 @@ import ShopCategoryButtons from "./ShopCategoryButtons";
 import useShopCategories from "../hooks/useShopCategories";
 import CurrentLocationButton from "./CurrentLocationButton";
 import StorySheet from "./StorySheet";
+import Markers from "./Markers";
 
 function BoundaryMap() {
   const { appStateStatus } = useAppStateStatusStore();
@@ -21,6 +22,8 @@ function BoundaryMap() {
   const { selectedShopCategory, handleSelectShopCategory } =
     useShopCategories();
 
+  console.log(location);
+
   return (
     <>
       <MapView
@@ -28,7 +31,9 @@ function BoundaryMap() {
         region={location}
         showsUserLocation
         onRegionChangeComplete={handleChangeLocation}
-      />
+      >
+        <Markers mapBoundary={mapBoundary} />
+      </MapView>
       <ShopCategoryButtons
         onSelectShopCategory={handleSelectShopCategory}
         selectedShopCategory={selectedShopCategory}
