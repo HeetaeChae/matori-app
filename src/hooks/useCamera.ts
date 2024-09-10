@@ -7,7 +7,6 @@ import {
   FocusMode,
 } from "expo-camera";
 import showSettingsAlert from "../utils/showSettingsAlert";
-import { StoryStackNavigationProp } from "../types/ParamLists";
 import navigations from "../constants/navigations";
 
 type CapturedImage = CameraCapturedPicture | undefined;
@@ -20,7 +19,7 @@ interface CameraProps {
 }
 
 function useCamera(
-  navigation: StoryStackNavigationProp
+  navigation
 ): [
   CapturedImage,
   () => void,

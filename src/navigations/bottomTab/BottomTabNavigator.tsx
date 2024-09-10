@@ -7,7 +7,7 @@ import SettingsScreen from "../../screens/SettingsScreen";
 import { BottomTabParamList } from "../../types/ParamLists";
 import HomeStackNavigator from "../stack/HomeStackNavigator";
 import ProfileStackNavigator from "../stack/ProfileStackNavigator";
-import StoryStackNavigator from "../stack/StoryStackNavigator";
+import StoryStackNavigator from "../stack/StoriesStackNavigator";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 

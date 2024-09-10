@@ -7,6 +7,8 @@ import {
 import { useEffect } from "react";
 import { AppState, AppStateStatus, Text, View } from "react-native";
 import { ErrorBoundary } from "./src/components/ErrorBoundary";
+import CustomButton from "./src/components/ui/CustomButton";
+import ScreenContainer from "./src/components/ui/ScreenContainer";
 import RootNavigator from "./src/navigations/RootNavigator";
 import { useAppStateStatusStore } from "./src/store/useAppStateStatusStore";
 
@@ -22,7 +24,7 @@ const queryClient = new QueryClient({
 });
 
 export default function App() {
-  const { handleAppStateStatus, appStatusStatus } = useAppStateStatusStore(
+  const { handleAppStateStatus, appStateStatus } = useAppStateStatusStore(
     (state) => state
   );
 
@@ -49,9 +51,10 @@ export default function App() {
               console.log("fallback", error);
 
               return (
-                <View style={{ margin: 50 }}>
-                  <Text>dddddddddddddddd</Text>
-                </View>
+                <ScreenContainer>
+                  <Text>에러가 발생하였습니다.</Text>
+                  <CustomButton onPress={onReset}>재시도</CustomButton>
+                </ScreenContainer>
               );
             }}
           >

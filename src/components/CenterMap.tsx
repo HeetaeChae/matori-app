@@ -33,7 +33,7 @@ function CenterMap() {
         onRegionChangeComplete={handleChangeLocation}
       />
       <View style={styles.cursor} />
-      <CurrentLocationButton onCurrentLocation={handleCurrentLocation} />
+      <CurrentLocationButton onPressCurrentLocation={handleCurrentLocation} />
     </>
   );
 }

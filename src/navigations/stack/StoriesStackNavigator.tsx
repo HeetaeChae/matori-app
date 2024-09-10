@@ -1,5 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { StoryStackParamList } from "../../types/ParamLists";
+import { StoriesStackParamList } from "../../types/ParamLists";
 
 import navigations from "../../constants/navigations";
 import CameraScreen from "../../screens/CameraScreen";
@@ -8,28 +8,39 @@ import EditStoryScreen from "../../screens/EditStoryScreen";
 import GalleryScreen from "../../screens/GalleryScreen";
 import ShopInfoScreen from "../../screens/ShopInfoScreen";
 import StoryScreen from "../../screens/StoryScreen";
+import StoriesScreen from "../../screens/StoriesScreen";
 
-const StoryStack = createStackNavigator<StoryStackParamList>();
+const StoriesStack = createStackNavigator<StoriesStackParamList>();
 
 function StoryStackNavigator() {
   return (
-    <StoryStack.Navigator
+    <StoriesStack.Navigator
       initialRouteName={navigations.STORY}
       screenOptions={{ headerShown: false }}
     >
-      <StoryStack.Screen name={navigations.STORY} component={StoryScreen} />
-      <StoryStack.Screen
+      <StoriesStack.Screen
+        name={navigations.STORIES}
+        component={StoriesScreen}
+      />
+      <StoriesStack.Screen name={navigations.STORY} component={StoryScreen} />
+      <StoriesStack.Screen
         name={navigations.EDIT_STORY}
         component={EditStoryScreen}
       />
-      <StoryStack.Screen name={navigations.COMMENT} component={CommentScreen} />
-      <StoryStack.Screen
+      <StoriesStack.Screen
+        name={navigations.COMMENT}
+        component={CommentScreen}
+      />
+      <StoriesStack.Screen
         name={navigations.SHOP_INFO}
         component={ShopInfoScreen}
       />
-      <StoryStack.Screen name={navigations.CAMERA} component={CameraScreen} />
-      <StoryStack.Screen name={navigations.GALLERY} component={GalleryScreen} />
-    </StoryStack.Navigator>
+      <StoriesStack.Screen name={navigations.CAMERA} component={CameraScreen} />
+      <StoriesStack.Screen
+        name={navigations.GALLERY}
+        component={GalleryScreen}
+      />
+    </StoriesStack.Navigator>
   );
 }
 

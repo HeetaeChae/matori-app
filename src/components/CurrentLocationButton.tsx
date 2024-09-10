@@ -3,18 +3,20 @@ import CircleButton from "./ui/CircleButton";
 import { StyleSheet, View } from "react-native";
 import { spacing } from "../constants/styles/spacing";
 
+interface CurrentLocationButtonProps {
+  onPressCurrentLocation: () => void;
+}
+
 function CurrentLocationButton({
-  onCurrentLocation,
-}: {
-  onCurrentLocation: () => void;
-}) {
+  onPressCurrentLocation,
+}: CurrentLocationButtonProps) {
   return (
     <View style={styles.circleButtonContainer}>
       <CircleButton
         icon="paper-plane"
         hasShadow
         styleProp={{ alignSelf: "flex-end" }}
-        onPress={onCurrentLocation}
+        onPress={onPressCurrentLocation}
       />
     </View>
   );

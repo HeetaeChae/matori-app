@@ -1,7 +1,15 @@
+import { StackScreenProps } from "@react-navigation/stack";
 import React from "react";
 import BoundaryMap from "../components/BoundaryMap";
+import navigations from "../constants/navigations";
+import { HomeStackParamList } from "../types/ParamLists";
 
-function HomeScreen() {
+export type HomeScreenProps = StackScreenProps<
+  HomeStackParamList,
+  typeof navigations.HOME
+>;
+
+function HomeScreen({ navigation }: HomeScreenProps) {
   return <BoundaryMap />;
 }
 

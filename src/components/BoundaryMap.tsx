@@ -7,6 +7,7 @@ import useMapBoundary from "../hooks/useMapBoundary";
 import ShopCategoryButtons from "./ShopCategoryButtons";
 import useShopCategories from "../hooks/useShopCategories";
 import CurrentLocationButton from "./CurrentLocationButton";
+import StorySheet from "./StorySheet";
 
 function BoundaryMap() {
   const { appStateStatus } = useAppStateStatusStore();
@@ -32,7 +33,8 @@ function BoundaryMap() {
         onSelectShopCategory={handleSelectShopCategory}
         selectedShopCategory={selectedShopCategory}
       />
-      <CurrentLocationButton onCurrentLocation={handleCurrentLocation} />
+      <CurrentLocationButton onPressCurrentLocation={handleCurrentLocation} />
+      <StorySheet />
     </>
   );
 }

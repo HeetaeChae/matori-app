@@ -1,6 +1,7 @@
 const navigations = {
   HOME: "Home",
   STORY: "Story",
+  STORIES: "Stories",
   EDIT_STORY: "EditStory",
   PROFILE: "Profile",
   EDIT_PROFILE: "EditProfile",

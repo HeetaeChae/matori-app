@@ -1,18 +1,28 @@
-import React from "react";
-import { Text } from "react-native";
+import { StackScreenProps } from "@react-navigation/stack";
+import React, { useLayoutEffect } from "react";
+import { Pressable, Text } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
-import ScreenContainer from "../components/ui/ScreenContainer";
-import { StoryStackNavigationProp } from "../types/ParamLists";
+import CustomView from "../components/ui/CustomView";
+import navigations from "../constants/navigations";
+import { HomeStackParamList, StoriesStackParamList } from "../types/ParamLists";
+import { HomeScreenProps } from "./HomeScreen";
+import { StoriesScreenProps } from "./StoriesScreen";
 
-interface StoryScreenProps {
-  navigation: StoryStackNavigationProp;
-}
+export type StoryScreenProps = StackScreenProps<
+  HomeStackParamList | StoriesStackParamList,
+  typeof navigations.STORY
+>;
 
 function StoryScreen({ navigation }: StoryScreenProps) {
+  useLayoutEffect(() => {
+    navigation.setOptions({ headerBackTitleVisible: false, title: "스토리" });
+  }, [navigation]);
+
   return (
-    <ScreenContainer>
+    <CustomView hasPadding styleProp={{ flex: 1 }}>
       <Text>Story</Text>
-    </ScreenContainer>
+    </CustomView>
   );
 }
 

@@ -1,10 +1,9 @@
-import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
-import { StackNavigationProp } from "@react-navigation/stack";
 import navigations from "../constants/navigations";
 
 export type HomeStackParamList = {
   [navigations.HOME]: undefined;
   [navigations.SHOP_INFO]: undefined;
+  [navigations.STORY]: undefined;
 };
 
 export type ProfileStackParamList = {
@@ -14,7 +13,8 @@ export type ProfileStackParamList = {
   [navigations.COMMENT]: undefined;
 };
 
-export type StoryStackParamList = {
+export type StoriesStackParamList = {
+  [navigations.STORIES]: undefined;
   [navigations.STORY]: undefined;
   [navigations.EDIT_STORY]: undefined;
   [navigations.SHOP_INFO]: undefined;
@@ -29,13 +29,3 @@ export type BottomTabParamList = {
   [navigations.PROFILE_STACK]: undefined;
   [navigations.SETTINGS]: undefined;
 };
-
-export type HomeStackNavigationProp = StackNavigationProp<HomeStackParamList>;
-
-export type ProfileStackNavigationProp =
-  StackNavigationProp<ProfileStackParamList>;
-
-export type StoryStackNavigationProp = StackNavigationProp<StoryStackParamList>;
-
-export type BottomTabNavigationProps =
-  BottomTabNavigationProp<BottomTabParamList>;
